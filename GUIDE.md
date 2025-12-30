@@ -9,7 +9,7 @@
 이 가이드는 Claude Code(바이브 코딩)를 활용하여 학술 이슈페이퍼를 제작하고, 웹 기반 E-Book으로 배포하는 전체 과정을 다룹니다.
 
 ### 완성된 결과물
-- **PDF**: AIFRenz 이슈페이퍼 제1호 (30페이지)
+- **PDF**: AiFrenz 이슈페이퍼 제1호 (30페이지)
 - **E-Book**: https://jkf87.github.io/aifrenz-ebook/
 
 ### 사용 도구
@@ -37,7 +37,7 @@ YAML frontmatter에 발행정보를 넣고,
 
 ```yaml
 ---
-title: "AIFRenz 이슈페이퍼"
+title: "AiFrenz 이슈페이퍼"
 volume: 1
 date: "2026년 1월"
 publisher: "AiFrenz 교육AI연구회"
@@ -107,7 +107,7 @@ PDF 생성 후 피드백을 통해 수정:
 
 ```bash
 cd issuepaper
-python3 slides/md_to_pdf_v4.py "이슈페이퍼_제1호_콘텐츠.md" "dist/AIFRenz_이슈페이퍼_제1호_v4.pdf"
+python3 slides/md_to_pdf_v4.py "이슈페이퍼_제1호_콘텐츠.md" "dist/AiFrenz_이슈페이퍼_제1호_v4.pdf"
 ```
 
 ---
@@ -139,7 +139,7 @@ rm -rf examples
 
 # PDF 폴더 생성 및 복사
 mkdir books
-cp /path/to/AIFRenz_이슈페이퍼_제1호_v4.pdf books/issuepaper.pdf
+cp /path/to/AiFrenz_이슈페이퍼_제1호_v4.pdf books/issuepaper.pdf
 ```
 
 ### 2.3 HTML 페이지 작성
@@ -150,11 +150,11 @@ cp /path/to/AIFRenz_이슈페이퍼_제1호_v4.pdf books/issuepaper.pdf
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <title>AIFRenz 이슈페이퍼 제1호</title>
+  <title>AiFrenz 이슈페이퍼 제1호</title>
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
   <!-- Open Graph 태그 -->
-  <meta property="og:title" content="AIFRenz 이슈페이퍼 제1호">
+  <meta property="og:title" content="AiFrenz 이슈페이퍼 제1호">
   <meta property="og:description" content="AI 교육 연구 커뮤니티">
   <meta property="og:image" content="https://jkf87.github.io/aifrenz-ebook/books/cover.png">
 
@@ -183,7 +183,7 @@ cp /path/to/AIFRenz_이슈페이퍼_제1호_v4.pdf books/issuepaper.pdf
 <body>
 
 <div class="header">
-  <h1>AIFRenz 이슈페이퍼 제1호</h1>
+  <h1>AiFrenz 이슈페이퍼 제1호</h1>
 </div>
 
 <div class="book-container">
@@ -219,7 +219,7 @@ pix.save('books/cover.png')
 # Git 초기화 및 커밋
 git init
 git add -A
-git commit -m "AIFRenz 이슈페이퍼 E-Book Viewer"
+git commit -m "AiFrenz 이슈페이퍼 E-Book Viewer"
 
 # GitHub 레포 생성 및 푸시
 gh repo create aifrenz-ebook --public --source=. --push
