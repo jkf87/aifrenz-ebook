@@ -142,66 +142,26 @@ mkdir books
 cp /path/to/AiFrenz_이슈페이퍼_제1호_v4.pdf books/issuepaper.pdf
 ```
 
-### 2.3 HTML 페이지 작성
+### 2.3 HTML 페이지 구성
 
-**index.html**:
+발행 호를 교체하지 않고 누적 보존한다. 페이지 역할은 다음처럼 분리한다.
+
+- `index.html`: 전체 이슈를 선택하는 아카이브
+- `issue-01.html`: 제1호 DearFlip 뷰어
+- `issue-02.html`: 제2호 DearFlip 뷰어
+
+각 뷰어는 해당 PDF를 `source`로 지정한다.
+
 ```html
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <title>AiFrenz 이슈페이퍼 제1호</title>
-  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<!-- issue-01.html -->
+<div class="_df_book" source="books/issuepaper.pdf"></div>
 
-  <!-- Open Graph 태그 -->
-  <meta property="og:title" content="AiFrenz 이슈페이퍼 제1호">
-  <meta property="og:description" content="AI 교육 연구 커뮤니티">
-  <meta property="og:image" content="https://jkf87.github.io/aifrenz-ebook/books/cover.png">
-
-  <!-- DearFlip CSS -->
-  <link href="dflip/css/dflip.min.css" rel="stylesheet">
-  <link href="dflip/css/themify-icons.min.css" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      min-height: 100vh;
-    }
-    .header {
-      text-align: center;
-      padding: 15px;
-      background: rgba(0,0,0,0.3);
-      color: white;
-    }
-    .book-container {
-      width: 100%;
-      height: calc(100vh - 60px);
-    }
-  </style>
-</head>
-<body>
-
-<div class="header">
-  <h1>AiFrenz 이슈페이퍼 제1호</h1>
-</div>
-
-<div class="book-container">
-  <div class="_df_book"
-       height="100%"
-       webgl="true"
-       backgroundcolor="#1a1a2e"
-       source="books/issuepaper.pdf">
-  </div>
-</div>
-
-<!-- DearFlip JS -->
-<script src="dflip/js/libs/jquery.min.js"></script>
-<script src="dflip/js/dflip.min.js"></script>
-
-</body>
-</html>
+<!-- issue-02.html -->
+<div class="_df_book" source="books/issuepaper-02.pdf"></div>
 ```
+
+새 호를 발행할 때는 기존 뷰어와 PDF를 수정하지 않고 새 파일을 추가한 뒤,
+`index.html`에 새 이슈 카드를 연결한다.
 
 ### 2.4 표지 썸네일 추출 (OG 태그용)
 
@@ -232,10 +192,14 @@ gh api repos/USERNAME/aifrenz-ebook/pages -X POST --input - <<< '{"source":{"bra
 
 ```
 ebook-viewer/
-├── index.html          # 메인 페이지
+├── index.html          # 전체 이슈 아카이브
+├── issue-01.html       # 제1호 뷰어
+├── issue-02.html       # 제2호 뷰어
 ├── books/
-│   ├── issuepaper.pdf  # 이슈페이퍼 PDF
-│   └── cover.png       # OG 태그용 썸네일
+│   ├── issuepaper.pdf     # 제1호 PDF
+│   ├── issuepaper-02.pdf  # 제2호 PDF
+│   ├── cover.png          # 제1호 표지 썸네일
+│   └── cover-02.png       # 제2호 표지 썸네일
 ├── dflip/              # DearFlip 라이브러리
 │   ├── css/
 │   ├── js/
@@ -302,11 +266,14 @@ git add -A && git commit -m "업데이트" && git push
 
 ## 다음 호 발행 시
 
-1. **마크다운 파일만 새로 작성** (`이슈페이퍼_제2호_콘텐츠.md`)
-2. **PDF 생성**: `python3 md_to_pdf_v4.py "제2호.md" "제2호.pdf"`
-3. **E-Book 업데이트**: PDF 교체 후 `git push`
+1. 최종 PDF를 `books/issuepaper-NN.pdf`로 추가한다.
+2. PDF 첫 페이지를 `books/cover-NN.png`로 추출한다.
+3. 직전 뷰어를 복사해 `issue-NN.html`을 만들고 제목, 메타데이터, PDF 경로를 수정한다.
+4. `index.html`에 새 호 카드를 추가한다.
+5. 로컬 서버에서 아카이브, 기존 호, 새 호, PDF와 표지 파일을 모두 확인한다.
+6. 커밋과 푸시 후 GitHub Pages 배포 상태 및 공개 URL을 확인한다.
 
-디자인 시스템이 코드에 녹아있어 **5분 만에 새 호 발행 가능**!
+기존 PDF와 뷰어는 덮어쓰지 않아 과거 발행물을 계속 열람할 수 있게 한다.
 
 ---
 
